@@ -19,12 +19,17 @@ ERROR 1071 (42000) at line 1: Specified key was too long; max key length is 767 
 ```
 At the moment, these will need to be changed manually, until I find a way of automating the process.
 
-To run this script, edit the variables in the header of the document, then run:
+To install this script run:
 ```
 wget -N https://raw.githubusercontent.com/jonleverrier/modx-database-upgrader/master/upgrade.sh
 ```
 
-Followed by:
+Before running the shell, edit the variables in the header of the document:
+```
+nano upgrade.sh
+```
+
+Once you're ready, run the script by typing the following:
 ```
 /bin/bash upgrade.sh
 ```
