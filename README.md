@@ -35,3 +35,7 @@ Once you're ready, run the script by typing the following:
 ```
 
 Once again, if you want to try out this script, please backup your database before doing so.
+
+Inspired by:
+*   https://modx.com/blog/converting-to-innodb-from-myisam-tables-using-the-command-line
+*   https://gist.github.com/samuelpismel/f41c3e7ec7861f39bf59
