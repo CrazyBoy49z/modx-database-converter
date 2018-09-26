@@ -7,7 +7,7 @@ This script attempts to convert your old MODX database to `utf8mb`. If your tabl
 This script does the following:
 1. Converts your tables from MyISAM to InnoDB
 2. Changes the charset of your database to utf8mb_general_ci
-3. Changes the charset in each table and relevant row to utf8mb_general_ci
+3. Converts all text-like columns in the table to utf8mb_general_ci
 4. Converts the charset
 5. Optimises the tables
 
