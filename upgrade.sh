@@ -27,6 +27,21 @@ database_pass='pass'
 charset=$1
 collate=$2
 
+# Check if root user
+if [ "${EUID}" != 0 ];
+then
+    echo ""
+    echo "------------------------------------------------------------------------"
+    echo ""
+    echo "MODX DATABASE UPGRADER"
+    echo "Please run this script as the root user and try again."
+    echo ""
+    echo "------------------------------------------------------------------------"
+    echo ""
+    exit
+fi
+
+# Welcome message
 echo ""
 echo "------------------------------------------------------------------------"
 echo ""
@@ -36,7 +51,7 @@ echo ""
 echo "------------------------------------------------------------------------"
 echo ""
 
-# Display warning if no inline variables are set 
+# Display warning if no inline variables are set
 if [ -z "$1" ]; then
     echo "WARNING: A charset was not defined."
     echo "For example: /bin/bash upgrade.sh <your_charset> <your_collation>"
