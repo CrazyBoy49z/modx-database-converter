@@ -41,6 +41,8 @@ ERROR 1071 (42000) at line 1: Specified key was too long; max key length is 767 
 ```
 At the moment, these will need to be changed manually, until I find a way of automating the process.
 
+Further reading: http://mysql.rjweb.org/doc.php/limits#767_limit_in_innodb_indexes
+
 ### Compatibility
 This script was tested with a database running MODX 2.6.5pl on Ubuntu 18.04 which is running MariaDB Ver 15.1 Distrib 10.1.34.
 
