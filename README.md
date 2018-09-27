@@ -31,7 +31,7 @@ The first variable passed sets the charset. The second variable passed sets the 
 ```
 In this example, this would set the charset of your database to `utf8mb4` and the collation to `utf8mb4_general_ci`.
 
-## utf8mb4
+### utf8mb4
 If you are trying to convert your database to `utf8mb4`, you might receive an error message on about 10% of your tables. For example:
 
 ```
@@ -40,6 +40,9 @@ Converting charset in modx_content_type
 ERROR 1071 (42000) at line 1: Specified key was too long; max key length is 767 bytes
 ```
 At the moment, these will need to be changed manually, until I find a way of automating the process.
+
+### Compatibility
+This script was tested with a database running MODX 2.6.5pl on Ubuntu 18.04 which is running MariaDB Ver 15.1 Distrib 10.1.34.
 
 *Once again, if you want to try out this script, please backup your database before doing so.*
 
