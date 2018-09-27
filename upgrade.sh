@@ -22,9 +22,10 @@ database_name='db'
 database_user='user'
 database_pass='pass'
 
-# What do you want to convert your database to?
-charset='utf8mb4'
-collate='utf8mb4_general_ci'
+# What do you want to convert your database to? Pass these inline, for example:
+# /bin/bash upgrade.sh <charset> <collation>
+charset=$1
+collate=$2
 
 echo ""
 echo "------------------------------------------------------------------------"
@@ -34,6 +35,19 @@ echo "Connecting to ${database_name}..."
 echo ""
 echo "------------------------------------------------------------------------"
 echo ""
+
+# Display warning if no inline variables are set 
+if [ -z "$1" ]; then
+    echo "WARNING: A charset was not defined."
+    echo "For example: /bin/bash upgrade.sh <your_charset> <your_collation>"
+    exit 1
+fi
+
+if [ -z "$2" ]; then
+    echo "WARNING: A database collation was not defined."
+    echo "For example: /bin/bash upgrade.sh <your_charset> <your_collation>"
+    exit 1
+fi
 
 # Convert MyISAM to InnoDB
 echo "${COLOUR_CYAN}Converting MyISAM to InnoDB${COLOUR_RESTORE}"

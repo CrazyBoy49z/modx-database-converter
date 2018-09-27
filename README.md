@@ -23,15 +23,16 @@ To install this script run:
 wget -N https://raw.githubusercontent.com/jonleverrier/modx-database-upgrader/master/upgrade.sh
 ```
 
-Before running the shell, edit the variables in the header of the document:
+Before running the shell, edit your database settings in the header of the document by running:
 ```
 nano upgrade.sh
 ```
 
 Once you're ready, run the script by typing the following:
 ```
-/bin/bash upgrade.sh
+/bin/bash upgrade.sh utf8mb4 utf8mb4_general_ci
 ```
+The first variable passed sets the charset. The second variable passed sets the collation.
 
 Once again, if you want to try out this script, please backup your database before doing so.
 
