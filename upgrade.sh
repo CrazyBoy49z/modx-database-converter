@@ -38,7 +38,7 @@ then
     echo ""
     echo "------------------------------------------------------------------------"
     echo ""
-    exit
+    exit 1
 fi
 
 # Welcome message
@@ -54,13 +54,15 @@ echo ""
 # Display warning if no inline variables are set
 if [ -z "$1" ]; then
     echo "WARNING: A charset was not defined."
-    echo "For example: /bin/bash upgrade.sh <your_charset> <your_collation>"
+    echo "Example usage: /bin/bash upgrade.sh <your_charset> <your_collation>"
+    echo ""
     exit 1
 fi
 
 if [ -z "$2" ]; then
     echo "WARNING: A database collation was not defined."
-    echo "For example: /bin/bash upgrade.sh <your_charset> <your_collation>"
+    echo "Example usage: /bin/bash upgrade.sh <your_charset> <your_collation>"
+    echo ""
     exit 1
 fi
 
