@@ -2,13 +2,13 @@
 
 _If you want to try out this script, please backup your database before doing so._
 
-This script attempts to convert your old MODX database to `utf8mb4`. If your tables have multiple collations, they will be unified using `utf8mb4_general_ci`.
+This script attempts to convert your old MODX database to a new charset and collation. If your tables have multiple collations, they will be unified after running this script.
 
 This script does the following:
 1. Converts your tables from MyISAM to InnoDB
-2. Changes the charset of your database to `utf8mb4_general_ci`
-3. Converts all text-like columns in the table to `utf8mb4_general_ci`
-4. Optimises the tables
+2. Changes the charset of your database
+3. Converts all text-like columns in the table to a collation of your choosing
+4. Optimises and repairs the tables with `mysqlcheck`
 
 ## Install
 To install this script run:
@@ -23,14 +23,14 @@ nano upgrade.sh
 ```
 
 ## Run
-Once you're ready, run the script by typing the following:
+The first variable passed sets the charset. The second variable passed sets the collation. Once you're ready, run the script by typing the following:
 ```
 /bin/bash upgrade.sh utf8mb4 utf8mb4_general_ci
 ```
-The first variable passed sets the charset. The second variable passed sets the collation.
+In this example, this would set the charset of your database to `utf8mb4` and the collation to `utf8mb4_general_ci`.
 
 ## utf8mb4
-If you are trying to convert your database to `utf8mb4`, you might receive an error message on 10% of your tables.
+If you are trying to convert your database to `utf8mb4`, you might receive an error message on about 10% of your tables. For example:
 
 ```
 Changing charset in modx_content_type
@@ -39,7 +39,7 @@ ERROR 1071 (42000) at line 1: Specified key was too long; max key length is 767 
 ```
 At the moment, these will need to be changed manually, until I find a way of automating the process.
 
-Once again, if you want to try out this script, please backup your database before doing so.
+*Once again, if you want to try out this script, please backup your database before doing so.*
 
 Inspired by:
 *   https://modx.com/blog/converting-to-innodb-from-myisam-tables-using-the-command-line
