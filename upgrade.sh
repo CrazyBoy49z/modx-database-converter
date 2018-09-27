@@ -18,14 +18,14 @@ COLOUR_WHITE=$(echo -en '\033[01;37m')
 COLOUR_CYAN=$(echo -en '\033[00;36m')
 
 # Your database details
-database_name='db'
-database_user='user'
-database_pass='pass'
+DATABASE_NAME='db'
+DATABASE_USER='user'
+DATABASE_PASS='pass'
 
 # What do you want to convert your database to? Pass these inline, for example:
 # /bin/bash upgrade.sh <charset> <collation>
-charset=$1
-collate=$2
+CHARSET=$1
+COLLATE=$2
 
 # Check if root user
 if [ "${EUID}" != 0 ];
@@ -46,7 +46,7 @@ echo ""
 echo "------------------------------------------------------------------------"
 echo ""
 echo "MODX DATABASE UPGRADER"
-echo "Connecting to ${database_name}..."
+echo "Connecting to ${DATABASE_NAME}..."
 echo ""
 echo "------------------------------------------------------------------------"
 echo ""
@@ -68,43 +68,43 @@ fi
 
 # Convert MyISAM to InnoDB
 echo "${COLOUR_CYAN}Converting MyISAM to InnoDB${COLOUR_RESTORE}"
-mysql -B --user=${database_user} -p${database_pass} ${database_name} --disable-column-names --execute "SELECT CONCAT('ALTER TABLE ',TABLE_NAME,' ENGINE=InnoDB;') FROM INFORMATION_SCHEMA.TABLES WHERE ENGINE='MyISAM' AND table_schema='${database_name}';" > schema.sql
-mysql --user=${database_user} -p${database_pass} ${database_name} < schema.sql
+mysql -B --user=${DATABASE_USER} -p${DATABASE_PASS} ${DATABASE_NAME} --disable-column-names --execute "SELECT CONCAT('ALTER TABLE ',TABLE_NAME,' ENGINE=InnoDB;') FROM INFORMATION_SCHEMA.TABLES WHERE ENGINE='MyISAM' AND table_schema='${DATABASE_NAME}';" > schema.sql
+mysql --user=${DATABASE_USER} -p${DATABASE_PASS} ${DATABASE_NAME} < schema.sql
 rm schema.sql
 echo "Complete"
 echo ""
 
-# Change charset of database
-echo "${COLOUR_CYAN}Changing charset of ${database_name}${COLOUR_RESTORE}"
-mysql --user=${database_user} --password=${database_pass} ${database_name} -s <<MYSQL_INPUT
+# Change CHARSET of database
+echo "${COLOUR_CYAN}Changing CHARSET of ${DATABASE_NAME}${COLOUR_RESTORE}"
+mysql --user=${DATABASE_USER} --password=${DATABASE_PASS} ${DATABASE_NAME} -s <<MYSQL_INPUT
 ALTER DATABASE
-    ${database_name}
-    CHARACTER SET ${charset}
-    COLLATE ${collate};
+    ${DATABASE_NAME}
+    CHARACTER SET ${CHARSET}
+    COLLATE ${COLLATE};
 MYSQL_INPUT
 echo "Complete"
 echo ""
 
-# Change charset of table
+# Change CHARSET of table
 echo "${COLOUR_CYAN}Preparing to change charset in tables...${COLOUR_RESTORE}"
 echo ""
 
-for table in $(mysql ${database_name} -s --skip-column-names -e 'show tables')
+for table in $(mysql ${DATABASE_NAME} -s --skip-column-names -e 'show tables')
     do
         echo "Changing charset in $table"
-        mysql -u ${database_user} -p${database_pass} ${database_name} -s <<MYSQL_INPUT
+        mysql -u ${DATABASE_USER} -p${DATABASE_PASS} ${DATABASE_NAME} -s <<MYSQL_INPUT
 ALTER TABLE
     $table
-    CHARACTER SET $charset
-    COLLATE $collate;
+    CHARACTER SET $CHARSET
+    COLLATE $COLLATE;
 MYSQL_INPUT
 
         echo "Converting charset in ${table}"
-        mysql -u ${database_user} -p${database_pass} ${database_name} -s <<MYSQL_INPUT
+        mysql -u ${DATABASE_USER} -p${DATABASE_PASS} ${DATABASE_NAME} -s <<MYSQL_INPUT
 ALTER TABLE
     $table
-    CONVERT TO CHARACTER SET $charset
-    COLLATE $collate;
+    CONVERT TO CHARACTER SET $CHARSET
+    COLLATE $COLLATE;
 MYSQL_INPUT
         echo ""
 
@@ -112,7 +112,7 @@ done
 
 echo "${COLOUR_CYAN}Optimising tables...${COLOUR_RESTORE}"
 echo ""
-mysqlcheck -u ${database_user} -p${database_pass} ${database_name} --auto-repair --optimize
+mysqlcheck -u ${DATABASE_USER} -p${DATABASE_PASS} ${DATABASE_NAME} --auto-repair --optimize
 
 echo ""
 echo "------------------------------------------------------------------------"
