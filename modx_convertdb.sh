@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #+----------------------------------------------------------------------------+
-#+ MODX DATABASE UPGRADER
+#+ MODX DATABASE CONVERTER
 #+----------------------------------------------------------------------------+
 #+ Author:      Jon Leverrier (jon@youandme.digital)
 #+ Copyright:   2018 You & Me Digital SARL
@@ -23,7 +23,7 @@ DATABASE_USER='user'
 DATABASE_PASS='pass'
 
 # What do you want to convert your database to? Pass these inline, for example:
-# /bin/bash upgrade.sh <charset> <collation>
+# /bin/bash modx_convertdb.sh <charset> <collation>
 CHARSET=$1
 COLLATE=$2
 
@@ -33,7 +33,7 @@ then
     echo ""
     echo "------------------------------------------------------------------------"
     echo ""
-    echo "MODX DATABASE UPGRADER"
+    echo "MODX DATABASE CONVERTER"
     echo "Please run this script as the root user and try again."
     echo ""
     echo "------------------------------------------------------------------------"
@@ -45,7 +45,7 @@ fi
 echo ""
 echo "------------------------------------------------------------------------"
 echo ""
-echo "MODX DATABASE UPGRADER"
+echo "MODX DATABASE CONVERTER"
 echo "Connecting to ${DATABASE_NAME}..."
 echo ""
 echo "------------------------------------------------------------------------"
@@ -54,14 +54,14 @@ echo ""
 # Display warning if no inline variables are set
 if [ -z "$1" ]; then
     echo "WARNING: A charset was not defined."
-    echo "Example usage: /bin/bash upgrade.sh <your_charset> <your_collation>"
+    echo "Example usage: /bin/bash modx_convertdb.sh <your_charset> <your_collation>"
     echo ""
     exit 1
 fi
 
 if [ -z "$2" ]; then
     echo "WARNING: A database collation was not defined."
-    echo "Example usage: /bin/bash upgrade.sh <your_charset> <your_collation>"
+    echo "Example usage: /bin/bash modx_convertdb.sh <your_charset> <your_collation>"
     echo ""
     exit 1
 fi

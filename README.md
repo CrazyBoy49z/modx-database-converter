@@ -1,4 +1,4 @@
-# MODX Database Upgrader
+# MODX Database Converter
 
 _If you want to try out this script, please backup your database before doing so._
 
@@ -15,19 +15,19 @@ Please run the following commands as `root` user.
 ## Install
 To install this script run:
 ```
-wget -N https://raw.githubusercontent.com/jonleverrier/modx-database-upgrader/master/upgrade.sh
+wget -N https://raw.githubusercontent.com/jonleverrier/modx-database-upgrader/master/modx_convertdb.sh
 ```
 
 ## Customise
 Before running the shell, edit your database settings in the header of the document by running:
 ```
-nano upgrade.sh
+nano modx_convertdb.sh
 ```
 
 ## Run
 The first variable passed sets the charset. The second variable passed sets the collation. Once you're ready, run the script by typing the following:
 ```
-/bin/bash upgrade.sh utf8mb4 utf8mb4_general_ci
+/bin/bash modx_convertdb.sh utf8mb4 utf8mb4_general_ci
 ```
 In this example, this would set the charset of your database to `utf8mb4` and the collation to `utf8mb4_general_ci`.
 
