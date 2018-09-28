@@ -31,7 +31,7 @@ The first variable passed sets the charset. The second variable passed sets the 
 ```
 In this example, this would set the charset of your database to `utf8mb4` and the collation to `utf8mb4_general_ci`.
 
-## utf8mb4
+## A note about utf8mb4
 If you are trying to convert your database to `utf8mb4`, you might receive an error message on about 10% of your tables. For example:
 
 ```
@@ -68,8 +68,8 @@ ALTER TABLE tbl ROW_FORMAT=DYNAMIC;  -- or COMPRESSED
 After rebooting MYSQL, try running `modx_convertdb.sh` on your database again.
 
 Further reading:
-http://mysql.rjweb.org/doc.php/limits#767_limit_in_innodb_indexes
-https://stackoverflow.com/questions/43379717/how-to-enable-large-index-in-mariadb-10
+* http://mysql.rjweb.org/doc.php/limits#767_limit_in_innodb_indexes
+* https://stackoverflow.com/questions/43379717/how-to-enable-large-index-in-mariadb-10
 
 ### Compatibility
 This script was tested with a database running MODX 2.6.5pl on Ubuntu 18.04 which is running MariaDB Ver 15.1 Distrib 10.1.34.
