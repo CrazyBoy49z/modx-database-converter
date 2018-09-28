@@ -31,7 +31,7 @@ The first variable passed sets the charset. The second variable passed sets the 
 ```
 In this example, this would set the charset of your database to `utf8mb4` and the collation to `utf8mb4_general_ci`.
 
-### utf8mb4
+## utf8mb4
 If you are trying to convert your database to `utf8mb4`, you might receive an error message on about 10% of your tables. For example:
 
 ```
@@ -39,11 +39,9 @@ Changing charset in modx_content_type
 Converting charset in modx_content_type
 ERROR 1071 (42000) at line 1: Specified key was too long; max key length is 767 bytes
 ```
-At the moment, these will need to be changed manually, ~until I find a way of automating the process~.
+At the moment, you will need to change `varchar(255)` to `varchar(191)` in the tables that reported an error, ~until I find a way of automating the process~.
 
-Further reading: http://mysql.rjweb.org/doc.php/limits#767_limit_in_innodb_indexes
-
-**Update**
+### Solution 1
 
 If you want to convert your database to `utf8mb4`, one solution is to use [Teleport](https://github.com/modxcms/teleport).
 
@@ -55,7 +53,23 @@ If you want to convert your database to `utf8mb4`, one solution is to use [Telep
 6. Extract a copy of your existing MODX Revolution website using `php teleport.phar --action=Extract --profile=profile/oldwebsite.profile.json --tpl=phar://teleport.phar/tpl/complete.tpl.json`
 7. Inject the existing MODX Revolution website into the new installation using `php teleport.phar --action=Inject --profile=profile/newwebsite.profile.json --source=workspace/oldwebsite_complete-120315.1106.30-2.2.1-dev.transport.zip`
 8. Check the database tables in your new installation - all looks good so far
-9. Run modx_convertdb.sh on your new installation 
+9. Run modx_convertdb.sh on your new installation
+
+## Solution 2
+
+Another option is to enable a larger index for MariaDB in your database configuration file under `[mysqld]`.
+```
+SET GLOBAL innodb_file_format=Barracuda;
+SET GLOBAL innodb_file_per_table=ON;
+SET GLOBAL innodb_large_prefix=1;
+logout & login (to get the global values);
+ALTER TABLE tbl ROW_FORMAT=DYNAMIC;  -- or COMPRESSED
+```
+After rebooting MYSQL, try running `modx_convertdb.sh` on your database again.
+
+Further reading:
+http://mysql.rjweb.org/doc.php/limits#767_limit_in_innodb_indexes
+https://stackoverflow.com/questions/43379717/how-to-enable-large-index-in-mariadb-10
 
 ### Compatibility
 This script was tested with a database running MODX 2.6.5pl on Ubuntu 18.04 which is running MariaDB Ver 15.1 Distrib 10.1.34.
