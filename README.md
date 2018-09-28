@@ -25,7 +25,7 @@ nano modx_convertdb.sh
 ```
 
 ## Run
-The first variable passed sets the charset. The second variable passed sets the collation. Once you're ready, run the script by typing the following:
+The first variable passed after modx_convertdb.sh sets the charset. The second variable passed sets the collation. Once you're ready, run the script by typing the following:
 ```
 /bin/bash modx_convertdb.sh utf8mb4 utf8mb4_general_ci
 ```
@@ -72,7 +72,7 @@ Further reading:
 * https://stackoverflow.com/questions/43379717/how-to-enable-large-index-in-mariadb-10
 
 ### Compatibility
-This script was tested with a database running MODX 2.6.5pl on Ubuntu 18.04 which is running MariaDB Ver 15.1 Distrib 10.1.34.
+This script was tested with a database running MODX 2.6.5pl on Ubuntu 18.04 which is running MariaDB Ver 15.1 Distrib 10.1.34-MariaDB, for debian-linux-gnu (x86_64) using readline 5.2.
 
 **Once again, if you want to try out this script, _please backup your database_ before doing so.**
 
