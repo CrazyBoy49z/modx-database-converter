@@ -57,15 +57,32 @@ If you want to convert your database to `utf8mb4`, one solution is to use [Telep
 
 **Solution 2**
 
-Another option is to enable a larger index for MariaDB in your database configuration file under `[mysqld]`.
+Another option is to enable a larger index for MariaDB in your database configuration file:
 ```
-SET GLOBAL innodb_file_format=Barracuda;
-SET GLOBAL innodb_file_per_table=ON;
-SET GLOBAL innodb_large_prefix=1;
-logout & login (to get the global values);
-ALTER TABLE tbl ROW_FORMAT=DYNAMIC;  -- or COMPRESSED
+[client]
+default-character-set = utf8mb4
+
+[mysqld]
+innodb_file_format = Barracuda
+innodb_file_per_table = 1
+innodb_large_prefix
+
+character-set-server = utf8mb4
+collation-server = utf8mb4_general_ci
+skip-character-set-client-handshake
+
+[mysql]
+default-character-set = utf8mb4
 ```
 After restarting MYSQL, try running `modx_convertdb.sh` on your database again.
+
+You could also try executing the following SQL commands via the command line or through PhpMyAdmin:
+
+```
+SET GLOBAL innodb_file_format = barracuda
+SET GLOBAL innodb_file_per_table = 1
+SET GLOBAL innodb_large_prefix = 'on'
+```
 
 Further reading:
 * http://mysql.rjweb.org/doc.php/limits#767_limit_in_innodb_indexes
