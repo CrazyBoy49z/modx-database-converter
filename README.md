@@ -32,14 +32,14 @@ The first variable passed sets the charset. The second variable passed sets the 
 In this example, this would set the charset of your database to `utf8mb4` and the collation to `utf8mb4_general_ci`.
 
 ## A note about utf8mb4
-If you are trying to convert your database to `utf8mb4`, you might receive an error message on about 10% of your tables. For example:
+If you are trying to convert your database to `utf8mb4` using `modx_convertdb.sh`, you might receive an error message on about 10% of your tables. For example:
 
 ```
 Changing charset in modx_content_type
 Converting charset in modx_content_type
 ERROR 1071 (42000) at line 1: Specified key was too long; max key length is 767 bytes
 ```
-At the moment, you will need to change `varchar(255)` to `varchar(191)` in the tables that reported an error, ~until I find a way of automating the process~.
+At the moment, you will need to manually change `varchar(255)` to `varchar(191)` in the tables that reported the error, ~until I find a way of automating the process~.
 
 ### Solution 1
 
@@ -65,7 +65,7 @@ SET GLOBAL innodb_large_prefix=1;
 logout & login (to get the global values);
 ALTER TABLE tbl ROW_FORMAT=DYNAMIC;  -- or COMPRESSED
 ```
-After rebooting MYSQL, try running `modx_convertdb.sh` on your database again.
+After restarting MYSQL, try running `modx_convertdb.sh` on your database again.
 
 Further reading:
 * http://mysql.rjweb.org/doc.php/limits#767_limit_in_innodb_indexes
