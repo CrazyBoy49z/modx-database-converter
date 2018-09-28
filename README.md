@@ -10,8 +10,6 @@ This script does the following:
 3. Converts all text-like columns in the table to a collation of your choosing
 4. Optimises and repairs the tables with `mysqlcheck`
 
-Please run the following commands as `root` user.
-
 ## Install
 To install this script run:
 ```

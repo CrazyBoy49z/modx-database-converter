@@ -27,20 +27,6 @@ DATABASE_PASS='pass'
 CHARSET=$1
 COLLATE=$2
 
-# Check if root user
-if [ "${EUID}" != 0 ];
-then
-    echo ""
-    echo "------------------------------------------------------------------------"
-    echo ""
-    echo "MODX DATABASE CONVERTER"
-    echo "Please run this script as the root user and try again."
-    echo ""
-    echo "------------------------------------------------------------------------"
-    echo ""
-    exit 1
-fi
-
 # Welcome message
 echo ""
 echo "------------------------------------------------------------------------"
