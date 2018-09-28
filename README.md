@@ -55,7 +55,7 @@ If you want to convert your database to `utf8mb4`, one solution is to use [Telep
 8. Check the database tables in your new installation - all looks good so far
 9. Run modx_convertdb.sh on your new installation
 
-## Solution 2
+### Solution 2
 
 Another option is to enable a larger index for MariaDB in your database configuration file under `[mysqld]`.
 ```
